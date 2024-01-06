@@ -1,0 +1,21 @@
+Built-in JDK functional interface
+
+Functions
+* take one input
+* return one output
+* a 'Function' interface
+
+Consumers
+* takes in an arg
+* doesn't return anything
+
+Suppliers
+* doesn't take any args
+* returns something
+
+Predicates
+* takes in an arg
+* resolve it to true or false
+
+What about takes no args and returns nothing?
+use Runnable interface
