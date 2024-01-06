@@ -1,14 +1,10 @@
-import java.util.function.Function;
+import java.util.List;
+import java.util.stream.Stream;
 
 public class Hello{
-    public static Function<Integer, Integer> counter(){
-        int count = 0;      //2. count become effectively final
-        Function<Integer, Integer> increment = x -> count + 1;      //1. you use count here inside lambda
-        count = 7;      //3. you can't change value of count because the value is locked by lambda
-        return increment;
-    }
     public static void main(String[] args) {
-        Function<Integer, Integer> cntr = Hello.counter();
-        System.out.println(cntr.apply(0));
+        List<String> names = List.of("Foo", "Bar", "Baz");
+        Stream<String> stream = names.stream();
+        stream.forEach(cons -> System.out.println(cons));
     }
 }
