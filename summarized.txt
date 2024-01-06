@@ -1,4 +1,4 @@
-Built-in JDK functional interface
+--Builtin JDK functional interface
 
 Functions
 * take one input
@@ -19,3 +19,9 @@ Predicates
 
 What about takes no args and returns nothing?
 use Runnable interface
+
+--Method references uses
+* when the lambda expression is just calling another method
+* and doing nothing else
+* syntactic shortcut
+* avoids arg names
