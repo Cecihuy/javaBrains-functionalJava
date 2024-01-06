@@ -4,16 +4,20 @@ public class Hello{
         int result = increment.operation(3);
         System.out.println("result = " + result);
 
-        MathOperation multiply = y -> y * 2;
+        OtherOperation multiply = y -> y * 2;
         int number = multiply.operation(3);
         System.out.println("number = " + number);
 
-        //polymorphism possible here
+        //different interface assignment doesn't work even same method signature
         multiply = increment;
         System.out.println("assign = " + multiply.operation(3));
     }   
 }
 
 interface MathOperation{
+    int operation(int i);
+}
+
+interface OtherOperation{
     int operation(int i);
 }
