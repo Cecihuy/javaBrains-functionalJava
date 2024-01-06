@@ -1,24 +1,19 @@
-import java.time.LocalDateTime;
-
 public class Hello{
-    public static void runner(Task task){
-        System.out.println("Start : " + LocalDateTime.now());
-        task.run();
-        System.out.println("End : " + LocalDateTime.now());
-    }
     public static void main(String[] args) {
-        Task task = new printHello();
-        Hello.runner(task);
-    }    
+        MathOperation increment = x -> x + 2;
+        int result = increment.operation(3);
+        System.out.println("result = " + result);
+
+        MathOperation multiply = y -> y * 2;
+        int number = multiply.operation(3);
+        System.out.println("number = " + number);
+
+        //polymorphism possible here
+        multiply = increment;
+        System.out.println("assign = " + multiply.operation(3));
+    }   
 }
 
-interface Task{
-    void run();
-}
-
-class printHello implements Task{
-    @Override
-    public void run() {
-        System.out.println("Hello World");
-    }
+interface MathOperation{
+    int operation(int i);
 }
