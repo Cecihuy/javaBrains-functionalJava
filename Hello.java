@@ -1,22 +1,31 @@
-import java.time.LocalDateTime;
-import java.util.function.BiConsumer;
-import java.util.function.Consumer;
-import java.util.function.UnaryOperator;
+import java.util.function.Function;
 
 public class Hello{
     public static void main(String[] args) {
-        Consumer<String> logMessage = msg -> System.out.println(msg + " : " + LocalDateTime.now());     //4. store value here
-        Runnable logStart = () -> logMessage.accept("Start");       //3. we run Consumer method
-        Runnable logEnd = () -> logMessage.accept("End");
+        Function<Integer, Integer> incrementIt = x -> x + 1;
+        Function<Integer, Integer> doubleIt = x -> x * 2;
 
-        BiConsumer<UnaryOperator<Integer>, Integer> logger = (operation, number) -> {
-            logStart.run();                 //2. we run Runnable method
-            operation.apply(number);        //5. we run Function method. sout here to see the different. continue the flow
-            logEnd.run();
-            
-        };        
-        logger.accept(x -> x + 1, 20);      //1. we run BiConsumer method;
-        System.out.println("separator");
-        logger.accept(x -> x * 100, 43);
+        int i = 7;
+        Function<Integer, Integer> combine = incrementIt
+                                        .andThen(doubleIt)
+                                        .andThen(incrementIt)
+                                        .andThen(doubleIt);
+
+        System.out.println(combine.apply(i));
+        
+        System.out.println("spacer"); 
+               
+        Function<String, String> trimLeading = String::stripLeading;
+        // Function<String, String> trimEnding = String::stripTrailing;
+        // Function<String, String> upperCase = String::toUpperCase;
+
+        String name = "   theresSpaceBetweenUs   ";
+
+        String processedName = trimLeading
+                                    .andThen(String::stripTrailing)
+                                    .andThen(String::toUpperCase)
+                                    .apply(name);
+        
+        System.out.println(processedName);
     }
 }
