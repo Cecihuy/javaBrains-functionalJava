@@ -1,20 +1,19 @@
-import java.time.LocalDateTime;
-
 public class Hello{
-    public static void runner(Task task){
-        System.out.println("Start : " + LocalDateTime.now());
-        task.run();
-        System.out.println("End : " + LocalDateTime.now());
+    public static int doMath(IntOperation op, int a, int b){
+        return op.doOperation(a, b);
     }
     public static void main(String[] args) {
-        Task task = () -> System.out.println("Hello world");
-        Hello.runner(task);
-        
-        // we can rewrite in one line        
-        Hello.runner(() -> System.out.println("Hello world"));
-    }    
+        IntOperation addition = (x, y) -> x + y;
+        IntOperation subtract = (x, y) -> x - y;
+
+        int print = doMath(addition, 3, 2);
+        int result = doMath(subtract, 3, 2);
+
+        System.out.println(print);
+        System.out.println(result);
+    }
 }
 
-interface Task{
-    void run();
+interface IntOperation{
+    int doOperation(int i, int j);
 }
