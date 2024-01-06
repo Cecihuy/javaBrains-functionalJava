@@ -1,31 +1,14 @@
 import java.util.function.Function;
 
 public class Hello{
+    public static Function<Integer, Integer> counter(){
+        int count = 0;      //2. count become effectively final
+        Function<Integer, Integer> increment = x -> count + 1;      //1. you use count here inside lambda
+        count = 7;      //3. you can't change value of count because the value is locked by lambda
+        return increment;
+    }
     public static void main(String[] args) {
-        Function<Integer, Integer> incrementIt = x -> x + 1;
-        Function<Integer, Integer> doubleIt = x -> x * 2;
-
-        int i = 7;
-        Function<Integer, Integer> combine = incrementIt
-                                        .andThen(doubleIt)
-                                        .andThen(incrementIt)
-                                        .andThen(doubleIt);
-
-        System.out.println(combine.apply(i));
-        
-        System.out.println("spacer"); 
-               
-        Function<String, String> trimLeading = String::stripLeading;
-        // Function<String, String> trimEnding = String::stripTrailing;
-        // Function<String, String> upperCase = String::toUpperCase;
-
-        String name = "   theresSpaceBetweenUs   ";
-
-        String processedName = trimLeading
-                                    .andThen(String::stripTrailing)
-                                    .andThen(String::toUpperCase)
-                                    .apply(name);
-        
-        System.out.println(processedName);
+        Function<Integer, Integer> cntr = Hello.counter();
+        System.out.println(cntr.apply(0));
     }
 }
