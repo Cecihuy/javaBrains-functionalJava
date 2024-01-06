@@ -2,9 +2,10 @@ import java.util.stream.Stream;
 
 public class Hello{
     public static void main(String[] args){
-        Stream<Integer> numbers = Stream.of(1,2,9,8,3,4,5,6,7,8,9,10);
-        numbers.distinct()
-            .sorted()
+        Stream<Integer> oddNumbers = Stream.of(1,3,5,7,9);
+        Stream<Integer> evenNumbers = Stream.of(0,2,4,6,8);
+
+        Stream.concat(evenNumbers, oddNumbers)
             .forEach(System.out::println);
     }
 }
