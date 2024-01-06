@@ -1,19 +1,27 @@
+import java.util.function.Consumer;
+import java.util.function.Function;
+import java.util.function.Predicate;
+import java.util.function.Supplier;
+
 public class Hello{
-    public static int doMath(IntOperation op, int a, int b){
-        return op.doOperation(a, b);
-    }
     public static void main(String[] args) {
-        IntOperation addition = (x, y) -> x + y;
-        IntOperation subtract = (x, y) -> x - y;
+        Function<Integer, Integer> myFunc = x -> x * 2;
+        myFunc.apply(7);
 
-        int print = doMath(addition, 3, 2);
-        int result = doMath(subtract, 3, 2);
+        Function<Integer, String> myFunc2 = num -> "Value is " + num;
+        myFunc2.apply(7);
 
-        System.out.println(print);
-        System.out.println(result);
+        Consumer<String> myCons = name -> System.out.println("Hello " + name);
+        myCons.accept("Koushik");
+
+        Supplier<Double> mySupp = () -> Math.random();
+        mySupp.get();
+
+        Predicate<Integer> myPred = num -> (num % 2) == 0;
+        myPred.test(7);
+
+        //this is not part of function package.
+        Runnable myRunn = () -> System.out.println();
+        myRunn.run();
     }
-}
-
-interface IntOperation{
-    int doOperation(int i, int j);
 }
