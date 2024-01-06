@@ -1,43 +1,22 @@
-import java.util.Collection;
-import java.util.HashSet;
-import java.util.List;
-import java.util.function.BiPredicate;
-import java.util.function.Function;
+import java.time.LocalDateTime;
+import java.util.function.BiConsumer;
+import java.util.function.Consumer;
+import java.util.function.UnaryOperator;
 
 public class Hello{
     public static void main(String[] args) {
-        Function<Person, String> pullName = Person::getName;    //"before is" p -> p.getName()
+        Consumer<String> logMessage = msg -> System.out.println(msg + " : " + LocalDateTime.now());     //4. store value here
+        Runnable logStart = () -> logMessage.accept("Start");       //3. we run Consumer method
+        Runnable logEnd = () -> logMessage.accept("End");
 
-        Person person1 = new Person("Foo", 25);
-        Person person2 = new Person("Bar", 45);
-
-        BiPredicate<Person, Person> checkEqual = Person::equals;    //"before is" (p1, p2) -> p1.equals(p2) "also" Object::equals
-
-        Function<List<String>, Integer> checkSize = List::size;    //"before is" list -> list.size()
-
-        Function<List<String>, Collection<String>> dedupe = HashSet::new;   //"before is" list -> new HashSet<>(list)
-    }
-}
-
-class Person{
-    private String name;
-    private int age;
-
-    public Person(String name, int age) {
-        this.name = name;
-        this.age = age;
-    }
-
-    public String getName() {
-        return name;
-    }
-    public void setName(String name) {
-        this.name = name;
-    }
-    public int getAge() {
-        return age;
-    }
-    public void setAge(int age) {
-        this.age = age;
+        BiConsumer<UnaryOperator<Integer>, Integer> logger = (operation, number) -> {
+            logStart.run();                 //2. we run Runnable method
+            operation.apply(number);        //5. we run Function method. sout here to see the different. continue the flow
+            logEnd.run();
+            
+        };        
+        logger.accept(x -> x + 1, 20);      //1. we run BiConsumer method;
+        System.out.println("separator");
+        logger.accept(x -> x * 100, 43);
     }
 }
